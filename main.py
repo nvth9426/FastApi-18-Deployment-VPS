@@ -94,7 +94,8 @@ async def user_posts_page(
     result = await db.execute(
         select(models.Post)
         .options(selectinload(models.Post.author))
-        .where(models.Post.user_id == user_id),
+        .where(models.Post.user_id == user_id)
+        .order_by(models.Post.date_posted.desc()),
     )
     posts = result.scalars().all()
     return templates.TemplateResponse(
@@ -119,6 +120,15 @@ async def register_page(request: Request):
         request,
         "register.html",
         {"title": "Register"},
+    )
+
+
+@app.get("/account", include_in_schema=False)
+async def account_page(request: Request):
+    return templates.TemplateResponse(
+        request,
+        "account.html",
+        {"title": "Account"},
     )
 
 
