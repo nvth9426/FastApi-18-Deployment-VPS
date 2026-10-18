@@ -9,7 +9,6 @@ export function getErrorMessage(error) {
 
 // Show a Bootstrap modal by ID
 export function showModal(modalId) {
-  alert('aaa');
   const modal = bootstrap.Modal.getOrCreateInstance(
     document.getElementById(modalId),
   );
